@@ -1,0 +1,137 @@
+<!--
+Copyright (C) 2011 by Weldon Sams
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>JsArt 032</title>
+<style type="text/css">
+body {
+    font-family:sans-serif;
+    font-size:100%;
+    color:#404040;
+}
+input {
+    padding:3px; 
+    border:1px solid #404040;
+}
+input:focus {
+    background-color:#E6E7D7;
+}
+input:active {
+    background-color:gray;
+    color:white;
+}
+.smalltext {
+    font-size:.75em;
+    color:gray;
+}
+</style>
+<script src="../js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="../js/canvas2image.js" type="text/javascript"></script>
+<script src="../js/base64.js" type="text/javascript"></script>
+<script type="text/javascript">
+// The number of rows and the number of columns.
+xmax = 768;
+ymax = xmax;
+
+// This width and height of each cell.
+hmax = 1;
+wmax = hmax;
+
+// This function always returns an integer between 0-255 or 0 if a string is input.
+function make_int(int) {
+    if ( isNaN(int) ){
+        return 0;
+    }
+    // make positive
+    int = Math.sqrt(Math.pow(int, 2));
+    // convert to integer [1-99]
+    if (int < 1 && int > 0) {
+        int = Math.round(int * 100);
+    }
+    // convert to integer [0-255]
+    int = Math.round(int);
+    if (int > 255) {
+        int = int % 256;
+    }
+    return int;
+}
+
+function render(context) {
+    var curx = 0;
+    var cury = 0;
+    for (x=0; x<xmax; x++) {
+        for (y=0; y<ymax; y++) {
+            curx = x * wmax;
+            cury = y * hmax;
+            r = make_int(x%y);
+            g = make_int(r%x*16);
+            b = make_int(r%g);
+            color = r + "," + g + "," + b;
+            context.fillStyle = "rgba(" + r + ", " + g + ", " + b + ", 1)";
+            context.fillRect(curx, cury, wmax, hmax);
+        }
+    }
+}
+
+/**
+ * jQuery ready function
+ */
+$(document).ready(function(){
+
+    // This overrides the default 10x10 canvas.
+    $("canvas#output").attr("width", xmax*hmax).attr("height", ymax*wmax);
+
+    var canvas = document.getElementById("output");
+    context = canvas.getContext("2d");
+    render(context);
+
+    $("input#savepng").click(function(){
+        Canvas2Image.saveAsPNG(canvas);
+    });
+
+    $("input#savejpeg").click(function(){
+        Canvas2Image.saveAsJPEG(canvas);
+    });
+
+    $("input#changeresolution").click(function(){
+        var width = $("input#width").val();
+        var height = $("input#height").val();
+        xmax = width;
+        ymax = height;
+        $("canvas#output").attr("width", xmax*hmax).attr("height", ymax*wmax);
+        render(context);
+    });
+
+});
+</script>
+</head>
+<body>
+<div id="container">
+<canvas id="output" width="10" height="10"></canvas><br />
+width <input id="width" size="5" value="768" title="Enter width in pixels." /> height <input id="height" size="5" value="768" title="Enter height in pixels." /> <input type="button" id="changeresolution" value="Change resolution" />
+<input type="button" id="savepng" value="Save PNG" /> <input type="button" id="savejpeg" value="Save JPEG" /><br />
+<p class="smalltext">You will have to rename the resulting file to <strong>something.png</strong> or <strong>something.jpg</strong>.</p>
+</div><!--container-->
+</body>
+</html>

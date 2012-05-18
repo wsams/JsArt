@@ -1,0 +1,184 @@
+<!--
+Copyright (C) 2011 by Weldon Sams
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>JsArt Interactive Edition v1</title>
+<style type="text/css">
+body {
+    font-family:sans-serif;
+    font-size:100%;
+    color:#404040;
+}
+input {
+    padding:3px; 
+    border:1px solid #404040;
+}
+input:focus {
+    background-color:#E6E7D7;
+}
+input:active {
+    background-color:gray;
+    color:white;
+}
+.smalltext {
+    font-size:.75em;
+    color:gray;
+}
+#rendering {
+    position:absolute;
+    top:0;
+    left:500px;
+    margin:0;
+    padding:0;
+    border-right:2px solid gray;
+    border-bottom:2px solid gray;
+    border-left:2px solid gray;
+    background-color:#E6EB65;
+    color:#425C42;
+    font-weight:bold;
+    -moz-border-radius-bottomleft:8px;
+    -moz-border-radius-bottomright:8px;
+    -webkit-border-bottom-left-radius:8px;
+    -webkit-border-bottom-right-radius:8px;
+    -moz-box-shadow:2px 2px 2px #b4b4b4;
+    -webkit-box-shadow:2px 2px 2px #b4b4b4;
+    -o-box-shadow:2px 2px 2px #b4b4b4;
+    box-shadow:2px 2px 2px #b4b4b4;
+    display:none;
+    visibility:hidden;
+}
+</style>
+<script src="js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="js/canvas2image.js" type="text/javascript"></script>
+<script src="js/base64.js" type="text/javascript"></script>
+<script type="text/javascript">
+// The number of rows and the number of columns.
+xmax = 256;
+ymax = xmax;
+
+// This width and height of each cell.
+hmax = 1;
+wmax = hmax;
+
+// This function always returns an integer between 0-255 or 0 if a string is input.
+function make_int(int) {
+    if ( isNaN(int) ){
+        return 0;
+    }
+    // make positive
+    int = Math.sqrt(Math.pow(int, 2));
+    // convert to integer [1-99]
+    if (int < 1 && int > 0) {
+        int = Math.round(int * 100);
+    }
+    // convert to integer [0-255]
+    int = Math.round(int);
+    if (int > 255) {
+        int = int % 256;
+    }
+    return int;
+}
+
+function render(context) {
+    displayRendering();
+    var curx = 0;
+    var cury = 0;
+    for (x=0; x<xmax; x++) {
+        for (y=0; y<ymax; y++) {
+            curx = x * wmax;
+            cury = y * hmax;
+            r = make_int(eval($("input#r").val()));
+            g = make_int(eval($("input#g").val()));
+            b = make_int(eval($("input#b").val()));
+            color = r + "," + g + "," + b;
+            context.fillStyle = "rgba(" + r + ", " + g + ", " + b + ", 1)";
+            context.fillRect(curx, cury, wmax, hmax);
+        }
+    }
+    hideRendering();
+}
+
+function displayRendering () {
+    $('div#rendering').css('display', 'block').css('visibility', 'visible');
+}
+
+function hideRendering () {
+    $('div#rendering').css('display', 'none').css('visibility', 'hidden');
+}
+
+/**
+ * jQuery ready function
+ */
+$(document).ready(function(){
+
+    // This overrides the default 10x10 canvas.
+    $("canvas#output").attr("width", xmax*hmax).attr("height", ymax*wmax);
+
+    var canvas = document.getElementById("output");
+    context = canvas.getContext("2d");
+    render(context);
+
+    $("input#render").click(function(){
+        render(context);
+    });
+
+    $("input#savepng").click(function(){
+        Canvas2Image.saveAsPNG(canvas);
+    });
+
+    $("input#savejpeg").click(function(){
+        Canvas2Image.saveAsJPEG(canvas);
+    });
+
+    $("input#changeresolution").click(function(){
+        displayRendering();
+        var width = $("input#width").val();
+        var height = $("input#height").val();
+        xmax = width;
+        ymax = height;
+        $("canvas#output").attr("width", xmax*hmax).attr("height", ymax*wmax);
+        render(context);
+        hideRendering();
+    });
+
+});
+</script>
+</head>
+<body>
+<div id="container">
+<p style="width:768px;">Enter a red, green and blue expression in the three fields below. You have access to the current
+   cell's <strong>x</strong> and <strong>y</strong> coordinate by entering <strong>x</strong> or <strong>y</strong> and any mathematical expression using <strong>x</strong> and <strong>y</strong>. The
+   green value also has access to the red value by entering <strong>r</strong> and the blue expression
+   has access to both red and green using <strong>r</strong> and <strong>g</strong>. The red expression
+   only has access to the <strong>x</strong> and <strong>y</strong> values. <span style="color:maroon;">
+   This may take several seconds to render, so please be patient.</span></p>
+red <input id="r" value="x+1" size="32" /> green <input id="g" value="Math.sin(y)" size="32" /> blue <input id="b" value="r+y" size="32" /> <input type="button" value="Render" id="render" /> <br /><br />
+<canvas id="output" width="10" height="10"></canvas><br /><br />
+width <input id="width" size="5" value="256" title="Enter width in pixels." /> height <input id="height" size="5" value="256" title="Enter height in pixels." /> <input type="button" id="changeresolution" value="Change resolution" />
+<input type="button" id="savepng" title="Rename the file to something with a .png extension." value="Save PNG" /> <input type="button" id="savejpeg" value="Save JPEG" /><br />
+<p class="smalltext">You will have to rename the resulting file to <strong>something.png</strong> or <strong>something.jpg</strong>.</p>
+</div><!--container-->
+<div id="rendering">Rendering, please wait...</div>
+</body>
+</html>

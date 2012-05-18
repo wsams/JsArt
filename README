@@ -1,0 +1,227 @@
+http://jsart.wjsams.com/
+
+This is an experimental project to create gradients and other
+artful images using pure HTML, CSS and JavaScript.
+
+jsart-interactive.html
+---
+This is a 400x400 example where you can play around with
+equations. Since it uses the eval() method it is much slower
+than a hardcoded value but can be used for experimentation.
+
+jsart-000.html
+---
+The bottom left corner is purple and fades diagonally to green
+in the top right corner.
+
+jsart-001.html
+---
+The top fades vertically straight down from black to gray.
+
+jsart-002.html
+---
+The top fades vertically downward from black to blue but is striped
+with red.
+
+jsart-003.html
+---
+The same pattern as 002 except the stripes are horizontal.
+
+jsart-004.html
+---
+This is essentially a plaid pattern. Horizontal stripes of green and
+purple and burgundy with vertical stripes of light blue.
+
+jsart-005.html
+---
+This pattern is hard to explain but is rectangularly gridded with a
+left to right gradient in each cell with a diagonal transparent
+overlay in reddish pink. Fairly resource intensive. See 007 for the
+HTML5 version.
+
+jsart-006.html
+---
+This is an exact copy of 000 except in HTML5 using the canvas element.
+
+In addition, the cell width is 1 pixel and it's 800x800. Once you do
+this you see that the full repeating image is actually a rectangle.
+
+jsart-007.html
+---
+This is an exact copy of 005 which renders horribly in the old hacky
+div method which could result in HTML pages of 14mb at only resolutions
+of say 400x400 pixels or there abouts.
+
+So this new version is high resolution at 800x800 and renders in a snap.
+
+jsart-008.html
+---
+This is by far one of the coolest images I've created yet. It is a series
+of diagonal strips that are grayscale gradients of itself in various colors.
+Blue, then green, then red, then orange and then it repeats.
+
+jsart-009.html
+---
+This is a tealish green, blue/purple set of horizontal stripes that seems
+pixelish. Basically not antialiased. Does crazy things to the eyes though.
+
+jsart-010.html
+---
+This one is very similar to 008 except the angle is not 45 degree stripes.
+They're more like 30-35 degrees and the blueish and orange stripes that
+are side by side are about twice as thick as the neon pink and green stripes.
+
+jsart-011.html
+---
+This image is primarily a magenta, dark blue and purple with black and a dash
+of yellow. There are thick striped lines with some wavey marks over a blue to
+pinkish gradient. The top of the image has some unique almost 3 dimensional
+warped chessboard patterns which the squares are light blue/purple on top
+of the dark magenta background. Those one isn't perfectly symmetrical like most.
+
+jsart-012.html
+---
+This image is somewhat plaid. It has diagonal stripes in both angles. Each squarei
+block has a gradient of teal on the left corner, red on the right, black at the top
+and white at the bottom. Each rectangular block that is the main center diagonal
+has the left corner teal, the top corner teal, the right bottom side is red, the top
+left side is black and the bottom and right corners are white. It's a very interesting
+pattern.
+
+jsart-013.html
+---
+This image is based off of x^2 + y^2 which gives us circles. Almost as if a water drop
+is dropped into a pool of water. It is perfectly tiled with similar drops in the background.
+It's blue and yellow.
+
+jsart-014.html
+---
+This image is nearly identical in shape to 012 except it's in neon colors with a parabolic
+underlying pattern in the background with the top being a transparent overlay.
+
+jsart-015.html
+---
+This image has parrallel diagonal stripes of transparent yellow graidents. The background
+has parrallel lines that intersect at a point. The angle is around 50 degrees, and are
+blue to black gradients. Essentially points.
+
+jsart-016.html
+---
+This one has horizontal stripes that are transparent overlays with the bottom being green
+fadding to 0% opacity. The background is vertical stripes of red gradients fading to black.
+
+jsart-017.html
+---
+This one came out really interesting. It's plaid like with vertical gradients and diagonal
+bars that are gradients. The interesting part is that by using cosine the hard lines are
+wavy.
+
+jsart-018.html
+---
+This is a series of new gradient parrellelograms. One interesting aspect is that there is
+a single diagonal row where the parrellelograms are twice as thick.
+
+jsart-019.html
+---
+This image is somewhat fractal like. It's a neon grid with each large cell containing 4
+cells that each contain 4 cells and so on.
+
+jsart-020.html
+---
+This is a large tile with circles. Each tile is a quarter of the circle. Each ripple of
+the circle is red and yellow.
+
+jsart-021.html
+---
+This one is similar to 019 except it almost looks mandelbrot like. It's very neon with
+tree like fractals.
+
+jsart-022.html
+---
+This one is split diagonally with the bottom left a gradient from black to dark maroon
+and the top right side angle sectors filled every other one with black and forest green.
+The very top has some mysterious red and curvy lines.
+
+jsart-023.html
+---
+This one has many different angles of stripes that overlay each other in gradients and
+form a diamond/triangular plaidish type image.
+
+jsart-024.html
+---
+This one has very large diagonal stripes of blue, greenish yellow and red.
+
+jsart-025.html
+---
+This art is interesting. The top left corner starts out with a diagonal stripe of deep indigo,
+and all other stripes are gradients of green, but as you go diagonally from top left to bottom
+right the stripes become less gradient and more flat.
+
+jsart-026.html
+---
+This one has diagonal stripes of red to black gradients with ever increasing blue and interesting
+water like splashes or sun beams at the left.
+
+jsart-027.html
+---
+All hell breaks loose on this pyschedelic piece. It is a sunburst from the top left in a dark blue
+maroon and all sorts of patterns. Hard to explain.
+
+jsart-028.html
+---
+This one is just as pyschedelic as 027. Hard to explain. Almost that effect of looking very close
+to an old tube tv or crt monitor. Some what parabolic x/y axis'.
+
+jsart-029.html
+---
+This image uses a derivation of the mandelbrot set which produces an interesting tile. It's transparent
+neon cubes on top of a magenta background.
+
+jsart-030.html
+---
+This one is only black and yellow gradients and is very geometrical but very asymetrical.
+
+jsart-031.html
+---
+Identical pattern to 030 but in red, green and black with the lines being thick green gradients.
+
+In the b equation g = make_int(r%x/10); if you increase the 10 to say 16 or 32 the green bars
+increase in thickness. There is a limit though. Around 512-1024 it becomes the same general
+image but the green lines go away and the image turns to black and red gradients and very
+static.
+
+jsart-032.html
+---
+This one is also identical to 030 and 031 by changing the / to * we get each strip containing 16
+stripes because we are using r%x*16.
+
+Again, like 031, once you increase the multiplier of the g component you get a black and red image,
+but still the same shape.
+
+jsart-033.html
+---
+A simple image with some organized static gradients. Black, to blue, to green, to teal.
+
+jsart-034.html
+---
+This is an interesting sunburst like image from the top left corner. Many colors in a dark blue,
+magenta, green pallete.
+
+jsart-035.html
+---
+Horizontal stripes of transparent magenta to green with a back ground of ever increase parabolas.
+
+jsart-036.html
+---
+This is a beautiful design. It's a serious of neon gradient cubes, but has large parabolas intersecting
+the entire image with each side of the line being a different color.
+
+jsart-037.html
+---
+This one is really cool. A bunch of gradiented parabolas stack on top of each other going south east.
+
+jsart-038.html
+---
+This image is somewhat boring at 512/512, but if you blow it up to around 1920x1080 you will see a
+large brilliant blue ball appearing in the bottom right corner. If you blow it out even further you
+will actually begin to see 037.
