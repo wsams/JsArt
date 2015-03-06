@@ -86,6 +86,7 @@ a:visited {
 <h2>Current Static Art</h2>
 <p class="smalltext"><a href="README">Read</a> about the following art.</p>
 <p>
+<a href="examples/jsart-040.html">jsart-040.html</a> &#160; 
 <a href="examples/jsart-039.html">jsart-039.html</a> &#160; 
 <a href="examples/jsart-038.html">jsart-038.html</a> &#160; 
 <a href="examples/jsart-037.html">jsart-037.html</a> &#160; 
